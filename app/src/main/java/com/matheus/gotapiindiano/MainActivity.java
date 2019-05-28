@@ -69,10 +69,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position, View v) {
                 Intent intent = new Intent(MainActivity.this, EditarLivroActivity.class);
-
                 intent.putExtra("ID", livroList.get(position).getId());
                 startActivity(intent);
-
                 Log.d("a", "onItemClick position: " + position);
             }
 
