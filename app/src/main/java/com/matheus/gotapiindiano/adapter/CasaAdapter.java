@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.matheus.gotapiindiano.R;
 import com.matheus.gotapiindiano.model.Casa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder> {
@@ -50,15 +52,29 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder
     }
 
     @Override
-    public void onBindViewHolder(CasaViewHolder holder, int position){
+    public void onBindViewHolder(CasaViewHolder holder, final int position){
         holder.txtName.setText(dataList.get(position).getName());
         holder.txtRegion.setText(dataList.get(position).getRegion());
         holder.txtWords.setText(dataList.get(position).getWords());
         holder.txtFounded.setText(dataList.get(position).getFounded());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Toast.makeText(context, "click on " + dataList.get(position).getName(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
     public int getItemCount(){
         return dataList.size();
+    }
+
+    public void setfilter(List<Casa> listcasa){
+        dataList = new ArrayList<>();
+        dataList.addAll(listcasa);
+        notifyDataSetChanged();
+
     }
 }

@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.AppCompat"
     tools:context=".CasaActivity">
 
     <ImageButton
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@android:color/white"
+        android:background="@color/colorWhite"
         android:src="@drawable/housesgot"
         android:fitsSystemWindows="true"
-        android:scaleType="fitXY"
-        />
+        android:scaleType="fitXY"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/customRecyclerCasa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="252dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"

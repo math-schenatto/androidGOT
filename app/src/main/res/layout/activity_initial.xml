@@ -13,18 +13,21 @@
         android:id="@+id/btnPersonagens"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="Personagens" />
 
     <Button
         android:id="@+id/btnCasas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:text="Casas" />
 
     <Button
         android:id="@+id/btnLivros"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:text="Livros" />
 
 </LinearLayout>
