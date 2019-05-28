@@ -15,6 +15,7 @@
             android:theme="@style/Theme.AppCompat"></activity>
         <activity android:name=".PersonagemActivity" />
         <activity android:name=".InitialActivity" />
+        <activity android:name=".EditarLivroActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

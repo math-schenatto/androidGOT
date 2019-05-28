@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">gotapiindiano</string>
+    <string name="app_name">GameOfThrones</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="confirmar_exclusao">Confirmar Exclusão</string>
+    <string name="quer_mesmo_apagar">Deseja mesmo apagar?</string>
 </resources>

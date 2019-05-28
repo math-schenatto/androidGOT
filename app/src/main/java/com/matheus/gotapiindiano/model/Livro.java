@@ -1,11 +1,11 @@
 package com.matheus.gotapiindiano.model;
 
-import java.util.List;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Livro {
+import java.util.List;
 
+public class Livro {
+    private int id;
     @SerializedName("url")
     private String url;
     @SerializedName("name")
@@ -25,11 +25,32 @@ public class Livro {
     @SerializedName("released")
     private String released;
     @SerializedName("characters")
-    private List<String> characters = null;
+    private List<Object> characters = null;
     @SerializedName("povCharacters")
-    private List<String> povCharacters = null;
+    private List<Object> povCharacters = null;
 
-    public Livro(String url, String name, String isbn, List<String> authors, Integer numberOfPages, String publisher, String country, String mediaType, String released, List<String> characters, List<String> povCharacters) {
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public Livro() {
+    }
+
+    /**
+     *
+     * @param released
+     * @param povCharacters
+     * @param authors
+     * @param isbn
+     * @param name
+     * @param numberOfPages
+     * @param characters
+     * @param mediaType
+     * @param url
+     * @param country
+     * @param publisher
+     */
+    public Livro(String url, String name, String isbn, List<String> authors, Integer numberOfPages, String publisher, String country, String mediaType, String released, List<Object> characters, List<Object> povCharacters) {
         super();
         this.url = url;
         this.name = name;
@@ -44,17 +65,20 @@ public class Livro {
         this.povCharacters = povCharacters;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getUrl() {
         return url;
     }
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public Livro withUrl(String url) {
-        this.url = url;
-        return this;
     }
 
     public String getName() {
@@ -65,22 +89,12 @@ public class Livro {
         this.name = name;
     }
 
-    public Livro withName(String name) {
-        this.name = name;
-        return this;
-    }
-
     public String getIsbn() {
         return isbn;
     }
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
-    }
-
-    public Livro withIsbn(String isbn) {
-        this.isbn = isbn;
-        return this;
     }
 
     public List<String> getAuthors() {
@@ -91,22 +105,12 @@ public class Livro {
         this.authors = authors;
     }
 
-    public Livro withAuthors(List<String> authors) {
-        this.authors = authors;
-        return this;
-    }
-
     public Integer getNumberOfPages() {
         return numberOfPages;
     }
 
     public void setNumberOfPages(Integer numberOfPages) {
         this.numberOfPages = numberOfPages;
-    }
-
-    public Livro withNumberOfPages(Integer numberOfPages) {
-        this.numberOfPages = numberOfPages;
-        return this;
     }
 
     public String getPublisher() {
@@ -117,22 +121,12 @@ public class Livro {
         this.publisher = publisher;
     }
 
-    public Livro withPublisher(String publisher) {
-        this.publisher = publisher;
-        return this;
-    }
-
     public String getCountry() {
         return country;
     }
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public Livro withCountry(String country) {
-        this.country = country;
-        return this;
     }
 
     public String getMediaType() {
@@ -143,11 +137,6 @@ public class Livro {
         this.mediaType = mediaType;
     }
 
-    public Livro withMediaType(String mediaType) {
-        this.mediaType = mediaType;
-        return this;
-    }
-
     public String getReleased() {
         return released;
     }
@@ -156,35 +145,20 @@ public class Livro {
         this.released = released;
     }
 
-    public Livro withReleased(String released) {
-        this.released = released;
-        return this;
-    }
-
-    public List<String> getCharacters() {
+    public List<Object> getCharacters() {
         return characters;
     }
 
-    public void setCharacters(List<String> characters) {
+    public void setCharacters(List<Object> characters) {
         this.characters = characters;
     }
 
-    public Livro withCharacters(List<String> characters) {
-        this.characters = characters;
-        return this;
-    }
-
-    public List<String> getPovCharacters() {
+    public List<Object> getPovCharacters() {
         return povCharacters;
     }
 
-    public void setPovCharacters(List<String> povCharacters) {
+    public void setPovCharacters(List<Object> povCharacters) {
         this.povCharacters = povCharacters;
-    }
-
-    public Livro withPovCharacters(List<String> povCharacters) {
-        this.povCharacters = povCharacters;
-        return this;
     }
 
 }

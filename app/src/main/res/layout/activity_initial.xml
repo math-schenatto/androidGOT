@@ -29,5 +29,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="Livros" />
+    <Button
+        android:id="@+id/btnDownload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Download Todos" />
+    <Button
+        android:id="@+id/btnExcluir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Excluir Todos" />
 
 </LinearLayout>

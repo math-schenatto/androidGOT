@@ -18,13 +18,14 @@ import java.util.List;
 public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.LivroViewHolder> {
     private List<Livro> dataList;
     private Context context;
+    private static ClickListener clickListener;
 
     public LivroAdapter(Context context, List<Livro> dataList){
         this.context = context;
         this.dataList = dataList;
     }
+    public static class LivroViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-    class LivroViewHolder extends RecyclerView.ViewHolder{
         public final View mview;
         private ImageView coverImage;
         TextView txtTitle;
@@ -35,12 +36,23 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.LivroViewHol
         LivroViewHolder(View itemView){
             super(itemView);
             mview = itemView;
-
+            mview.setOnClickListener(this);
+            mview.setOnLongClickListener(this);
             txtTitle = mview.findViewById(R.id.title);
             txtIsbn = mview.findViewById(R.id.isbn);
             txtReleased = mview.findViewById(R.id.released);
             txtAuthors = mview.findViewById(R.id.autor);
 
+        }
+        @Override
+        public void onClick(View v) {
+            clickListener.onItemClick(getAdapterPosition(), v);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            clickListener.onItemLongClick(getAdapterPosition(), v);
+            return false;
         }
     }
 
@@ -66,5 +78,15 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.LivroViewHol
     @Override
     public int getItemCount(){
         return dataList.size();
+    }
+
+
+    public void setOnItemClickListener(ClickListener clickListener) {
+        LivroAdapter.clickListener = clickListener;
+    }
+
+    public interface ClickListener {
+        void onItemClick(int position, View v);
+        void onItemLongClick(int position, View v);
     }
 }
