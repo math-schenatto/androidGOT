@@ -69,6 +69,7 @@ public class CasaActivity extends AppCompatActivity {
         bd = new BDSQLiteHelperCasa(CasaActivity.this);
         recyclerView = findViewById(R.id.customRecyclerCasa);
         final ArrayList<Casa> casaList = bd.getAllCasas();
+        listaDeCasas = casaList;
         adapter = new CasaAdapter(this, casaList);
         adapter.setOnItemClickListener(new CasaAdapter.ClickListener() {
             @Override
@@ -99,7 +100,6 @@ public class CasaActivity extends AppCompatActivity {
         });
 
     }
-
 
     private void generateDataListOnline(List<Casa> casaList){
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -150,7 +150,6 @@ public class CasaActivity extends AppCompatActivity {
             final String text = model.getName().toLowerCase();
             if(text.startsWith(query)){
                 filteredModelList.add(model);
-
             }
         }
         return filteredModelList;
