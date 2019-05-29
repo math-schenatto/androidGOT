@@ -1,11 +1,11 @@
 package com.matheus.gotapiindiano.model;
 
 import java.util.List;
-import com.google.gson.annotations.Expose;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Personagem {
-
+    private int id;
     @SerializedName("url")
     private String url;
     @SerializedName("name")
@@ -38,7 +38,9 @@ public class Personagem {
     private List<String> tvSeries = null;
     @SerializedName("playedBy")
     private List<String> playedBy = null;
+    public  Personagem(){
 
+    }
     public Personagem(String url, String name, String gender, String culture, String born, String died, List<String> titles, List<String> aliases, String father, String mother, String spouse, List<String> allegiances, List<String> books, List<String> povBooks, List<String> tvSeries, List<String> playedBy) {
         super();
         this.url = url;
@@ -57,6 +59,14 @@ public class Personagem {
         this.povBooks = povBooks;
         this.tvSeries = tvSeries;
         this.playedBy = playedBy;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUrl() {

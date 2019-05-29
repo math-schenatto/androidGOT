@@ -10,8 +10,11 @@ import android.widget.Toast;
 
 import com.matheus.gotapiindiano.adapter.LivroAdapter;
 import com.matheus.gotapiindiano.banco.BDSQLiteHelper;
+import com.matheus.gotapiindiano.banco.BDSQLiteHelperCasa;
+import com.matheus.gotapiindiano.banco.BDSQLiteHelperPersonagem;
 import com.matheus.gotapiindiano.model.Casa;
 import com.matheus.gotapiindiano.model.Livro;
+import com.matheus.gotapiindiano.model.Personagem;
 import com.matheus.gotapiindiano.network.LivroInterfaceGDS;
 import com.matheus.gotapiindiano.network.RetrofitClientLivro;
 
@@ -25,7 +28,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class InitialActivity extends AppCompatActivity {
-    private BDSQLiteHelper bd;
+    private BDSQLiteHelper bdl;
+    private BDSQLiteHelperCasa bdc;
+    private BDSQLiteHelperPersonagem bdp;
     ArrayList<Livro> listaLivros;
 
     @Override
@@ -53,21 +58,25 @@ public class InitialActivity extends AppCompatActivity {
                 InitialActivity.this,
                 "Carregando...",
                 Toast.LENGTH_SHORT).show();
-        bd = new BDSQLiteHelper(InitialActivity.this);
-        // CRIANDO RETROFIT INTERFACE
-        LivroInterfaceGDS service = RetrofitClientLivro.getRetrofitInstanceLivro().create(LivroInterfaceGDS.class);
-        Call<List<Livro>> call = service.getAllBooks(1, 8);
+        bdl = new BDSQLiteHelper(InitialActivity.this);
+        bdc = new BDSQLiteHelperCasa(InitialActivity.this);
+        bdp = new BDSQLiteHelperPersonagem(InitialActivity.this);
 
-        call.enqueue(new Callback<List<Livro>>() {
+        LivroInterfaceGDS service = RetrofitClientLivro.getRetrofitInstanceLivro().create(LivroInterfaceGDS.class);
+        Call<List<Livro>> calllivro = service.getAllBooks(1, 8);
+        Call<List<Personagem>> callpersonagem = service.getAllCharacters(1, 8);
+        Call<List<Casa>> callcasa = service.getAllHouses(1, 8);
+
+        calllivro.enqueue(new Callback<List<Livro>>() {
             @Override
             public void onResponse(Call<List<Livro>> call, Response<List<Livro>> response) {
 
                 for (Livro model:response.body()){
-                    bd.addLivro(model);
+                    bdl.addLivro(model);
                 }
                 Toast.makeText(
                         InitialActivity.this,
-                        "Download concluido.",
+                        "Download de livros concluido.",
                         Toast.LENGTH_SHORT).show();
 
             }
@@ -81,15 +90,79 @@ public class InitialActivity extends AppCompatActivity {
             }
         });
 
+        callcasa.enqueue(new Callback<List<Casa>>() {
+            @Override
+            public void onResponse(Call<List<Casa>> call, Response<List<Casa>> response) {
+
+                for (Casa model:response.body()){
+                    bdc.addCasa(model);
+                }
+                Toast.makeText(
+                        InitialActivity.this,
+                        "Download de casas concluido.",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Casa>> call, Throwable t) {
+                Toast.makeText(
+                        InitialActivity.this,
+                        "Você está offline.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        callpersonagem.enqueue(new Callback<List<Personagem>>() {
+            @Override
+            public void onResponse(Call<List<Personagem>> call, Response<List<Personagem>> response) {
+
+                for (Personagem model:response.body()){
+                    bdp.addPersonagem(model);
+                }
+                Toast.makeText(
+                        InitialActivity.this,
+                        "Download de personagens concluido.",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Personagem>> call, Throwable t) {
+                Toast.makeText(
+                        InitialActivity.this,
+                        "Você está offline.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
     @OnClick(R.id.btnExcluir)
     public void clickExcluir(View view){
-        bd = new BDSQLiteHelper(InitialActivity.this);
-        ArrayList<Livro> livroList = bd.getAllLivros();
+        bdl = new BDSQLiteHelper(InitialActivity.this);
+        bdc = new BDSQLiteHelperCasa(InitialActivity.this);
+        bdp = new BDSQLiteHelperPersonagem(InitialActivity.this);
+
+        ArrayList<Livro> livroList = bdl.getAllLivros();
         for (Livro model:livroList) {
-            bd.deleteLivro(model);
+            bdl.deleteLivro(model);
 
         }
+        ArrayList<Casa> casaList = bdc.getAllCasas();
+        for (Casa model:casaList) {
+            bdc.deleteCasa(model);
+
+        }
+        ArrayList<Personagem> personagemList = bdp.getAllPersonagems();
+        for (Personagem model:personagemList) {
+            bdp.deletePersonagem(model);
+
+        }
+
+        Toast.makeText(
+                InitialActivity.this,
+                "Todos os registros foram excluidos.",
+                Toast.LENGTH_SHORT).show();
     }
 }

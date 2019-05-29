@@ -31,13 +31,11 @@ public class Livro {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public Livro() {
     }
 
     /**
-     *
      * @param released
      * @param povCharacters
      * @param authors

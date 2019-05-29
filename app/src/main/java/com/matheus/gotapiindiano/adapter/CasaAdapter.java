@@ -17,6 +17,7 @@ import java.util.List;
 public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder> {
     private List<Casa> dataList;
     private Context context;
+    private static CasaAdapter.ClickListener clickListener;
 
     public CasaAdapter(Context context, List<Casa> dataList){
         this.context = context;
@@ -24,7 +25,7 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder
 
     }
 
-    class CasaViewHolder extends RecyclerView.ViewHolder{
+    public static class CasaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public final View mview;
         TextView txtName;
         TextView txtRegion;
@@ -34,11 +35,22 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder
         CasaViewHolder(View itemView){
             super(itemView);
             mview = itemView;
-
+            mview.setOnClickListener(this);
+            mview.setOnLongClickListener(this);
             txtName = mview.findViewById(R.id.houseName);
             txtRegion = mview.findViewById(R.id.region);
             txtWords = mview.findViewById(R.id.words);
             txtFounded = mview.findViewById(R.id.founded);
+        }
+        @Override
+        public void onClick(View v) {
+            clickListener.onItemClick(getAdapterPosition(), v);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            clickListener.onItemLongClick(getAdapterPosition(), v);
+            return false;
         }
 
     }
@@ -58,12 +70,7 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder
         holder.txtWords.setText(dataList.get(position).getWords());
         holder.txtFounded.setText(dataList.get(position).getFounded());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Toast.makeText(context, "click on " + dataList.get(position).getName(), Toast.LENGTH_LONG).show();
-            }
-        });
+
     }
 
     @Override
@@ -76,5 +83,14 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder
         dataList.addAll(listcasa);
         notifyDataSetChanged();
 
+    }
+
+    public void setOnItemClickListener(CasaAdapter.ClickListener clickListener) {
+        CasaAdapter.clickListener = clickListener;
+    }
+
+    public interface ClickListener {
+        void onItemClick(int position, View v);
+        void onItemLongClick(int position, View v);
     }
 }

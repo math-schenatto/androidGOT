@@ -1,11 +1,11 @@
 package com.matheus.gotapiindiano.model;
 
 import java.util.List;
-import com.google.gson.annotations.Expose;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Casa {
-
+    private int id;
     @SerializedName("url")
     private String url;
     @SerializedName("name")
@@ -39,7 +39,8 @@ public class Casa {
     @SerializedName("swornMembers")
     private List<String> swornMembers = null;
 
-
+    public Casa() {
+    }
     public Casa(String url, String name, String region, String coatOfArms, String words, List<String> titles, List<String> seats, String currentLord, String heir, String overlord, String founded, String founder, String diedOut, List<String> ancestralWeapons, List<Object> cadetBranches, List<String> swornMembers) {
         super();
         this.url = url;
@@ -58,6 +59,14 @@ public class Casa {
         this.ancestralWeapons = ancestralWeapons;
         this.cadetBranches = cadetBranches;
         this.swornMembers = swornMembers;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUrl() {

@@ -1,11 +1,13 @@
 package com.matheus.gotapiindiano;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.matheus.gotapiindiano.adapter.CasaAdapter;
+
+import com.matheus.gotapiindiano.banco.BDSQLiteHelperCasa;
 import com.matheus.gotapiindiano.model.Casa;
 import com.matheus.gotapiindiano.network.LivroInterfaceGDS;
 import com.matheus.gotapiindiano.network.RetrofitClientLivro;
@@ -32,6 +36,7 @@ public class CasaActivity extends AppCompatActivity {
     private CasaAdapter adapter;
     private RecyclerView recyclerView;
     List<Casa> listaDeCasas = new ArrayList<>();
+    private BDSQLiteHelperCasa bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +49,61 @@ public class CasaActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Casa>>() {
             @Override
             public void onResponse(Call<List<Casa>> call, Response<List<Casa>> response) {
-                generateDataList(response.body());
+                generateDataListOnline(response.body());
             }
 
             @Override
             public void onFailure(Call<List<Casa>> call, Throwable t) {
-                Toast.makeText(CasaActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                        CasaActivity.this,
+                        "Você está offline. Mostrando registros salvos em banco.",
+                        Toast.LENGTH_SHORT).show();
 
+                generateDataListOffline();
             }
         });
     }
 
-    private void generateDataList(List<Casa> casaList){
+    private void generateDataListOffline() {
+
+        bd = new BDSQLiteHelperCasa(CasaActivity.this);
+        recyclerView = findViewById(R.id.customRecyclerCasa);
+        final ArrayList<Casa> casaList = bd.getAllCasas();
+        adapter = new CasaAdapter(this, casaList);
+        adapter.setOnItemClickListener(new CasaAdapter.ClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                Intent intent = new Intent(CasaActivity.this, EditarCasaActivity.class);
+                intent.putExtra("ID", casaList.get(position).getId());
+                startActivity(intent);
+                Log.d("a", "onItemClick position: " + position);
+            }
+
+            @Override
+            public void onItemLongClick(int position, View v) {
+                Log.d("a", "onItemLongClick pos = " + position);
+            }});
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CasaActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CasaActivity.this, AdicionarCasaActivity.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+
+    private void generateDataListOnline(List<Casa> casaList){
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.hide();
         listaDeCasas = casaList;
         recyclerView = findViewById(R.id.customRecyclerCasa);
         adapter = new CasaAdapter(this, casaList);

@@ -11,10 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".CasaActivity"
+        <activity
+            android:name=".CasaActivity"
             android:theme="@style/Theme.AppCompat"></activity>
         <activity android:name=".PersonagemActivity" />
         <activity android:name=".InitialActivity" />
+        <activity android:name=".AdicionarLivroActivity" />
+        <activity android:name=".AdicionarPersonagemActivity" />
+        <activity android:name=".AdicionarCasaActivity" />
+        <activity android:name=".EditarPersonagemActivity" />
+        <activity android:name=".EditarCasaActivity" />
         <activity android:name=".EditarLivroActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
