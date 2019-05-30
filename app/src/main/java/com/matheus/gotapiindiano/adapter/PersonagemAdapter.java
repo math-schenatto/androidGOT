@@ -45,7 +45,11 @@ public class PersonagemAdapter extends RecyclerView.Adapter<PersonagemAdapter.Pe
 
         @Override
         public void onClick(View v) {
-            clickListener.onItemClick(getAdapterPosition(), v);
+            try {
+                clickListener.onItemClick(getAdapterPosition(), v);
+            } catch (Exception e) {
+                return;
+            }
         }
 
         @Override

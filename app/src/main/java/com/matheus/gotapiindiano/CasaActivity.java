@@ -49,6 +49,10 @@ public class CasaActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Casa>>() {
             @Override
             public void onResponse(Call<List<Casa>> call, Response<List<Casa>> response) {
+                Toast.makeText(
+                        CasaActivity.this,
+                        "Você está online.",
+                        Toast.LENGTH_SHORT).show();
                 generateDataListOnline(response.body());
             }
 

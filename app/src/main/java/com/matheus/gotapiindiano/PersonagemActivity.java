@@ -42,6 +42,10 @@ public class PersonagemActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Personagem>>() {
             @Override
             public void onResponse(Call<List<Personagem>> call, Response<List<Personagem>> response) {
+                Toast.makeText(
+                        PersonagemActivity.this,
+                        "Você está online.",
+                        Toast.LENGTH_SHORT).show();
                 generateDataListOnline(response.body());
             }
 

@@ -64,8 +64,8 @@ public class InitialActivity extends AppCompatActivity {
 
         LivroInterfaceGDS service = RetrofitClientLivro.getRetrofitInstanceLivro().create(LivroInterfaceGDS.class);
         Call<List<Livro>> calllivro = service.getAllBooks(1, 8);
-        Call<List<Personagem>> callpersonagem = service.getAllCharacters(1, 8);
-        Call<List<Casa>> callcasa = service.getAllHouses(1, 8);
+        Call<List<Personagem>> callpersonagem = service.getAllCharacters(4,40);
+        Call<List<Casa>> callcasa = service.getAllHouses(1, 50);
 
         calllivro.enqueue(new Callback<List<Livro>>() {
             @Override

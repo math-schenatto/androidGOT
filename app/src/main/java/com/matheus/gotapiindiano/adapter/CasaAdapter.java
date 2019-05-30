@@ -19,7 +19,7 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder
     private Context context;
     private static CasaAdapter.ClickListener clickListener;
 
-    public CasaAdapter(Context context, List<Casa> dataList){
+    public CasaAdapter(Context context, List<Casa> dataList) {
         this.context = context;
         this.dataList = dataList;
 
@@ -32,7 +32,7 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder
         TextView txtWords;
         TextView txtFounded;
 
-        CasaViewHolder(View itemView){
+        CasaViewHolder(View itemView) {
             super(itemView);
             mview = itemView;
             mview.setOnClickListener(this);
@@ -42,9 +42,14 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder
             txtWords = mview.findViewById(R.id.words);
             txtFounded = mview.findViewById(R.id.founded);
         }
+
         @Override
         public void onClick(View v) {
-            clickListener.onItemClick(getAdapterPosition(), v);
+            try {
+                clickListener.onItemClick(getAdapterPosition(), v);
+            } catch (Exception e) {
+                return;
+            }
         }
 
         @Override
@@ -56,7 +61,7 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder
     }
 
     @Override
-    public CasaViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public CasaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.custom_row_casa, parent, false);
         return new CasaViewHolder(view);
@@ -64,7 +69,7 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder
     }
 
     @Override
-    public void onBindViewHolder(CasaViewHolder holder, final int position){
+    public void onBindViewHolder(CasaViewHolder holder, final int position) {
         holder.txtName.setText(dataList.get(position).getName());
         holder.txtRegion.setText(dataList.get(position).getRegion());
         holder.txtWords.setText(dataList.get(position).getWords());
@@ -74,11 +79,11 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder
     }
 
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return dataList.size();
     }
 
-    public void setfilter(List<Casa> listcasa){
+    public void setfilter(List<Casa> listcasa) {
         dataList = new ArrayList<>();
         dataList.addAll(listcasa);
         notifyDataSetChanged();
@@ -91,6 +96,7 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder
 
     public interface ClickListener {
         void onItemClick(int position, View v);
+
         void onItemLongClick(int position, View v);
     }
 }

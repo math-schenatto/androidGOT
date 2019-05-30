@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.matheus.gotapiindiano.R;
 import com.matheus.gotapiindiano.model.Livro;
@@ -45,7 +46,11 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.LivroViewHol
         }
         @Override
         public void onClick(View v) {
-            clickListener.onItemClick(getAdapterPosition(), v);
+            try {
+                clickListener.onItemClick(getAdapterPosition(), v);
+            } catch(Exception e) {
+                return;
+            }
         }
 
         @Override

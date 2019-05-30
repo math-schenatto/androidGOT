@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Livro>>() {
             @Override
             public void onResponse(Call<List<Livro>> call, Response<List<Livro>> response) {
+                Toast.makeText(
+                        MainActivity.this,
+                        "Você está online.",
+                        Toast.LENGTH_SHORT).show();
                 generateDataListOnline(response.body());
             }
 
